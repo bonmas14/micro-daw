@@ -3,7 +3,6 @@
 
 #include <glad/gl.h>
 #include <GLFW/glfw3.h>
-#include <cglm/vec3.h>
 #include "portaudio.h"
 
 #define CIMGUI_DEFINE_ENUMS_AND_STRUCTS
@@ -122,9 +121,29 @@ int main(void) {
     err = Pa_StartStream(stream);
     if (err != paNoError) return Error(err);
 
-    while (Pa_IsStreamActive(stream)) {
-		Pa_Sleep(100);
+
+    GLFWwindow* window;
+
+    if (!glfwInit())
+        return Error(-1); // for now 
+
+    window = glfwCreateWindow(640, 480, "Test", NULL, NULL);
+
+    if (!window) {
+        glfwTerminate();
+        return Error(-1); // for now 
     }
+
+    glfwMakeContextCurrent(window);
+
+
+    while (!glfwWindowShouldClose(window) && Pa_IsStreamActive(stream)) {
+        glClear(GL_COLOR_BUFFER_BIT);
+        glfwSwapBuffers(window);
+        glfwPollEvents();
+    }
+
+    glfwTerminate();
 
     err = Pa_StopStream(stream);
     if (err != paNoError) return Error(err);
