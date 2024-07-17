@@ -6,6 +6,7 @@ project "micro-daw"
     kind "ConsoleApp"
     language "C"
     staticruntime "on"
+    runtime "Release"
 
     targetdir "bin/%{cfg.buildcfg}"
     files { "src/**.h", "src/**.c" }
@@ -28,7 +29,6 @@ project "micro-daw"
                   "./libraries/cimgui/build/Release",
                   "./libraries/portaudio/build/Release"  }
         defines { "NDEBUG" }
-        runtime "Release"
         optimize "On"
 
     filter {}

@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <math.h>
 
-#include <glad/gl.h>
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include "portaudio.h"
 
@@ -127,6 +127,13 @@ int main(void) {
     if (!glfwInit())
         return Error(-1); // for now 
 
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+
+
     window = glfwCreateWindow(640, 480, "Test", NULL, NULL);
 
     if (!window) {
@@ -136,14 +143,18 @@ int main(void) {
 
     glfwMakeContextCurrent(window);
 
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
+        return Error(-1);
+    }
 
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     while (!glfwWindowShouldClose(window) && Pa_IsStreamActive(stream)) {
         glClear(GL_COLOR_BUFFER_BIT);
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
 
-    glfwTerminate();
+    //glfwTerminate();
 
     err = Pa_StopStream(stream);
     if (err != paNoError) return Error(err);
