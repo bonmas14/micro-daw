@@ -1,0 +1,11 @@
+/libraries/glfw-3.4/build
+/libraries/portaudio/build
+/bin
+/build
+obj
+Makefile
+
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
