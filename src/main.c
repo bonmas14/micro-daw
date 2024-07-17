@@ -1,8 +1,13 @@
 #include <stdio.h>
 #include <math.h>
 
+#include <glad/gl.h>
 #include <GLFW/glfw3.h>
+#include <cglm/vec3.h>
 #include "portaudio.h"
+
+#define CIMGUI_DEFINE_ENUMS_AND_STRUCTS
+#include <cimgui.h>
 
 #define SAMPLE_RATE   (44100)
 #define FRAMES_PER_BUFFER  (64)
